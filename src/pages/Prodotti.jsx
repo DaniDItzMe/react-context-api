@@ -6,26 +6,33 @@ import { useBudgetMode } from "../contexts/BudgetContext";
 export default function Prodotti() {
   const [products, setProducts] = useState();
 
-  const { budgetMode, setBudgetMode } = useBudgetMode();
+  const { maxPrice, setMaxPrice, setBudgetMode } = useBudgetMode();
 
   useEffect(() => {
     axios.get("https://fakestoreapi.com/products").then((res) => {
       console.log(res.data);
       setProducts(res.data);
     });
+
+    setBudgetMode(true);
+
+    return () => {
+      setBudgetMode(false);
+      setMaxPrice("");
+    };
   }, []);
 
   //Per le card dei prodotti ho preso ispirazione da Amazon
 
   return (
     <div>
-      <h1 className="text-center mb-5">Prodotti {budgetMode.toString()}</h1>
+      <h1 className="text-center mb-5">Prodotti</h1>
 
       <div className="row g-5">
         {products
-          ? budgetMode
+          ? maxPrice
             ? products.map((product) => {
-                if (product.price <= 30) {
+                if (product.price <= maxPrice) {
                   return (
                     <div className="col d-flex" key={product.id}>
                       <Link

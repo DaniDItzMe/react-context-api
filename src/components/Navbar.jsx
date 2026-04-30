@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useBudgetMode } from "../contexts/BudgetContext";
 export default function Navbar() {
-  const { budgetMode, setBudgetMode } = useBudgetMode();
+  const { maxPrice, setMaxPrice, budgetMode } = useBudgetMode();
 
   return (
     <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
@@ -40,14 +40,21 @@ export default function Navbar() {
                 Prodotti
               </NavLink>
             </li>
-            <li className="nav-item">
-              <button
-                className={budgetMode ? "btn btn-secondary" : "btn btn-danger"}
-                onClick={() => setBudgetMode((current) => !current)}
-              >
-                {budgetMode ? "Disattiva budget mode" : "Attiva budget mode"}
-              </button>
-            </li>
+            {budgetMode ? (
+              <li className="nav-item">
+                <input
+                  type="number"
+                  className="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="Filtra per prezzo massimo"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  data-bs-theme="light"
+                />
+              </li>
+            ) : (
+              <div></div>
+            )}
           </ul>
         </div>
       </div>
