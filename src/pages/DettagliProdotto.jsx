@@ -33,36 +33,38 @@ export default function DettagliProdotto() {
       {product ? (
         <>
           <h1 className="text-center mb-3">Dettagli prodotto</h1>
-          <div className="productDetails row border border-2 rounded p-3">
-            <div className="col-3">
-              <img className="w-100" src={product.image} alt="" />
-            </div>
-            <div className="col-9 d-flex flex-column">
-              <h2>{product.title}</h2>
-              <div className="d-flex gap-2">
-                <span className="fw-bold">{product?.rating.rate}</span>
-                <div>
-                  {Array.from({
-                    length: Math.floor(product?.rating.rate),
-                  }).map((prod, i) => (
-                    <span key={i}>⭐</span>
-                  ))}
+          <div className=" flex-grow-1 ">
+            <div className="productDetails row border border-2 rounded p-3">
+              <div className="col-3">
+                <img className="w-100" src={product.image} alt="" />
+              </div>
+              <div className="col-9 d-flex flex-column">
+                <h2>{product.title}</h2>
+                <div className="d-flex gap-2">
+                  <span className="fw-bold">{product?.rating.rate}</span>
+                  <div>
+                    {Array.from({
+                      length: Math.floor(product?.rating.rate),
+                    }).map((prod, i) => (
+                      <span key={i}>⭐</span>
+                    ))}
+                  </div>
+                  <span>({product.rating.count})</span>
                 </div>
-                <span>({product.rating.count})</span>
-              </div>
-              <div className="d-flex flex-column flex-grow-1">
-                <span className="fs-5">{product.description}</span>
-                <span className="text-primary">
-                  Category:
-                  <span className="category"> {product.category}</span>
+                <div className="d-flex flex-column flex-grow-1">
+                  <span className="fs-5">{product.description}</span>
+                  <span className="text-primary">
+                    Category:
+                    <span className="category"> {product.category}</span>
+                  </span>
+                </div>
+                <span className="fs-2 fw-bolder">
+                  €{product.price.toFixed(2)}
                 </span>
+                <button className="btn btn-warning w-100">
+                  Aggiungi al carrello
+                </button>
               </div>
-              <span className="fs-2 fw-bolder">
-                €{product.price.toFixed(2)}
-              </span>
-              <button className="btn btn-warning w-100">
-                Aggiungi al carrello
-              </button>
             </div>
           </div>
           <div className="d-flex justify-content-center mt-4">
